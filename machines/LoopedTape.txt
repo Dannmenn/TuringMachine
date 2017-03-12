@@ -1,0 +1,3 @@
+Tryb pojedynczych znaków
+taśma:1
+P->P:*-> :PRAWO

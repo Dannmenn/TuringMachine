@@ -1,0 +1,8 @@
+Tryb pojedynczych znaków
+taśma:10001
+P->P:*->*:BEZ
+P->q1:1->1:PRAWO
+q1->q1:0->0:PRAWO
+q1->q2:1->1:LEWO
+q2->q2:0->0:LEWO
+q2->q1:1->1:PRAWO
