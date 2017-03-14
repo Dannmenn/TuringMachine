@@ -35,7 +35,7 @@ public class TuringMachineRunner implements Runnable {
                 }
                 if (!machine.isManual()) {
                     log.info("sleep");
-                    runnerLatch.await((long) machine.getStepTime().get(), TimeUnit.MILLISECONDS);
+                    runnerLatch.await((long) machine.getStepTime(), TimeUnit.MILLISECONDS);
                     runnerLatch = new CountDownLatch(1);
                 }
             }

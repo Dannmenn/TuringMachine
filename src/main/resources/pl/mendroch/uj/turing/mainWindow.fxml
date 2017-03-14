@@ -1,224 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            minHeight="400.0" minWidth="300.0" prefHeight="700.0" prefWidth="1300.0"
-            style="-fx-font-size: 16;" stylesheets="/pl/mendroch/uj/turing/mainWindow.css"
-            fx:controller="pl.mendroch.uj.turing.view.MainWindowController">
-   <VBox alignment="CENTER" layoutX="79.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-         AnchorPane.topAnchor="0.0">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="300.0" prefHeight="700.0" prefWidth="1300.0" style="-fx-font-size: 16;" stylesheets="/pl/mendroch/uj/turing/mainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="pl.mendroch.uj.turing.view.MainWindowController">
+   <VBox alignment="CENTER" layoutX="79.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <MenuBar>
          <Menu mnemonicParsing="false" text="Plik">
-            <MenuItem mnemonicParsing="false" onAction="#open" text="Otwórz"/>
-            <MenuItem mnemonicParsing="false" onAction="#save" text="Zapisz"/>
-            <MenuItem mnemonicParsing="false" onAction="#close" text="Zamknij"/>
+            <MenuItem mnemonicParsing="false" onAction="#open" text="Otwórz" />
+            <MenuItem mnemonicParsing="false" onAction="#save" text="Zapisz" />
+            <MenuItem mnemonicParsing="false" onAction="#close" text="Zamknij" />
          </Menu>
          <Menu mnemonicParsing="false" text="Edycja">
-            <CheckMenuItem fx:id="detectLoop" mnemonicParsing="false" selected="true" text="Wykrywanie zapętleń"/>
-            <MenuItem mnemonicParsing="false" onAction="#clearMachine" text="Wyczyść"/>
+            <CheckMenuItem fx:id="detectLoop" mnemonicParsing="false" selected="true" text="Wykrywanie zapętleń" />
+            <MenuItem mnemonicParsing="false" onAction="#clearMachine" text="Wyczyść" />
          </Menu>
          <Menu mnemonicParsing="false" text="Czcionka">
             <RadioMenuItem mnemonicParsing="false" onAction="#fontSmall" text="12">
                <toggleGroup>
-                  <ToggleGroup fx:id="font"/>
+                  <ToggleGroup fx:id="font" />
                </toggleGroup>
             </RadioMenuItem>
-            <RadioMenuItem mnemonicParsing="false" onAction="#fontMedium" selected="true" text="16"
-                           toggleGroup="$font"/>
-            <RadioMenuItem mnemonicParsing="false" onAction="#fontBig" text="20" toggleGroup="$font"/>
-            <RadioMenuItem mnemonicParsing="false" onAction="#fontMega" text="24" toggleGroup="$font"/>
+            <RadioMenuItem mnemonicParsing="false" onAction="#fontMedium" selected="true" text="16" toggleGroup="$font" />
+            <RadioMenuItem mnemonicParsing="false" onAction="#fontBig" text="20" toggleGroup="$font" />
+            <RadioMenuItem mnemonicParsing="false" onAction="#fontMega" text="24" toggleGroup="$font" />
          </Menu>
          <Menu mnemonicParsing="false" text="Typ taśmy">
-            <RadioMenuItem fx:id="singleMode" mnemonicParsing="false" onAction="#singleMode" selected="true"
-                           text="Pojedyncze znaki">
+            <RadioMenuItem fx:id="singleMode" mnemonicParsing="false" onAction="#singleMode" selected="true" text="Pojedyncze znaki">
                <toggleGroup>
-                  <ToggleGroup fx:id="tapeMode"/>
+                  <ToggleGroup fx:id="tapeMode" />
                </toggleGroup>
             </RadioMenuItem>
-            <RadioMenuItem fx:id="wordMode" mnemonicParsing="false" onAction="#wordMode" text="Zapis wyrazami"
-                           toggleGroup="$tapeMode"/>
+            <RadioMenuItem fx:id="wordMode" mnemonicParsing="false" onAction="#wordMode" text="Zapis wyrazami" toggleGroup="$tapeMode" />
          </Menu>
          <Menu mnemonicParsing="false" text="Pomoc">
-            <MenuItem mnemonicParsing="false" onAction="#about" text="Opis"/>
+            <MenuItem mnemonicParsing="false" onAction="#about" text="Opis" />
          </Menu>
       </MenuBar>
-      <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                 VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
-                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <Tab closable="false" text="Tekstowe">
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308"
-                                 maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0"
-                                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                              prefWidth="800.0" spacing="5.0">
-                           <Label alignment="CENTER" maxHeight="1.7976931348623157E308"
-                                  maxWidth="1.7976931348623157E308" text="Wprowadzanie taśmy"/>
+                     <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="800.0" spacing="5.0">
+                           <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Wprowadzanie taśmy" />
                            <TextField fx:id="tapeInput" alignment="CENTER">
                               <VBox.margin>
-                                 <Insets left="5.0" right="5.0"/>
+                                 <Insets left="5.0" right="5.0" />
                               </VBox.margin>
                            </TextField>
                            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
                               <CheckBox fx:id="leftLimit" mnemonicParsing="false" text="lewostronnie ograniczona">
                                  <HBox.margin>
-                                    <Insets left="15.0"/>
+                                    <Insets left="15.0" />
                                  </HBox.margin>
                               </CheckBox>
-                              <HBox HBox.hgrow="ALWAYS"/>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                      onAction="#clearTapeInput" text="wyczyść taśmę"/>
-                              <HBox HBox.hgrow="ALWAYS"/>
-                              <CheckBox fx:id="rightLimit" alignment="CENTER" contentDisplay="CENTER"
-                                        mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT"
-                                        text="prawostronnie ograniczona">
+                              <HBox HBox.hgrow="ALWAYS" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearTapeInput" text="wyczyść taśmę" />
+                              <HBox HBox.hgrow="ALWAYS" />
+                              <CheckBox fx:id="rightLimit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="prawostronnie ograniczona">
                                  <HBox.margin>
-                                    <Insets right="15.0"/>
+                                    <Insets right="15.0" />
                                  </HBox.margin>
                               </CheckBox>
                               <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </padding>
                            </HBox>
-                           <Label alignment="CENTER" maxHeight="1.7976931348623157E308"
-                                  maxWidth="1.7976931348623157E308" text="Domyślne przejście"/>
+                           <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Domyślne przejście" />
                            <GridPane hgap="5.0" minHeight="80.0" vgap="5.0">
                               <columnConstraints>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               </columnConstraints>
                               <rowConstraints>
-                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" vgrow="SOMETIMES"/>
-                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" prefHeight="30.0"
-                                                 vgrow="SOMETIMES"/>
+                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                               <VBox.margin>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </VBox.margin>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Ze stanu"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Do stanu" GridPane.columnIndex="1"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Przesunięcie" GridPane.columnIndex="2"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Kiedy" GridPane.columnIndex="3"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Wtedy" GridPane.columnIndex="4"/>
-                              <TextField fx:id="fromDefault" alignment="CENTER" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER"
-                                         GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                              <TextField fx:id="toDefault" alignment="CENTER" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"
-                                         GridPane.halignment="CENTER" GridPane.rowIndex="1"
-                                         GridPane.valignment="CENTER"/>
-                              <TextField fx:id="whenDefault" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="3"
-                                         GridPane.halignment="CENTER" GridPane.rowIndex="1"
-                                         GridPane.valignment="CENTER"/>
-                              <TextField fx:id="thenDefault" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="4"
-                                         GridPane.halignment="CENTER" GridPane.rowIndex="1"
-                                         GridPane.valignment="CENTER"/>
-                              <ChoiceBox fx:id="moveDefault" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="2"
-                                         GridPane.rowIndex="1"/>
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Ze stanu" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Do stanu" GridPane.columnIndex="1" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Przesunięcie" GridPane.columnIndex="2" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Kiedy" GridPane.columnIndex="3" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Wtedy" GridPane.columnIndex="4" />
+                              <TextField fx:id="fromDefault" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <TextField fx:id="toDefault" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <TextField fx:id="whenDefault" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <TextField fx:id="thenDefault" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <ChoiceBox fx:id="moveDefault" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                            </GridPane>
-                           <Label alignment="CENTER" maxHeight="1.7976931348623157E308"
-                                  maxWidth="1.7976931348623157E308" text="Dodawanie przejścia">
-                              <VBox.margin>
-                                 <Insets top="10.0"/>
-                              </VBox.margin>
-                           </Label>
+                           <HBox prefHeight="100.0" prefWidth="200.0">
+                              <children>
+                                 <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                 <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Dodawanie przejścia" />
+                                 <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                 <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Stan początkowy:">
+                                    <HBox.margin>
+                                       <Insets right="5.0" />
+                                    </HBox.margin>
+                                 </Label>
+                                 <TextField fx:id="initialState" alignment="CENTER" prefWidth="80.0" text="P">
+                                    <HBox.margin>
+                                       <Insets />
+                                    </HBox.margin>
+                                 </TextField>
+                              </children>
+                           </HBox>
                            <GridPane hgap="5.0" minHeight="80.0" vgap="5.0">
                               <columnConstraints>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               </columnConstraints>
                               <rowConstraints>
-                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" vgrow="SOMETIMES"/>
-                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" prefHeight="30.0"
-                                                 vgrow="SOMETIMES"/>
+                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                               <VBox.margin>
-                                 <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" />
                               </VBox.margin>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Ze stanu"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Do stanu" GridPane.columnIndex="1"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Przesunięcie" GridPane.columnIndex="2"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Kiedy" GridPane.columnIndex="3"/>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                                     maxWidth="1.7976931348623157E308" text="Wtedy" GridPane.columnIndex="4"/>
-                              <TextField fx:id="fromInput" alignment="CENTER" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER"
-                                         GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                              <TextField fx:id="toInput" alignment="CENTER" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"
-                                         GridPane.halignment="CENTER" GridPane.rowIndex="1"
-                                         GridPane.valignment="CENTER"/>
-                              <TextField fx:id="whenInput" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="3"
-                                         GridPane.halignment="CENTER" GridPane.rowIndex="1"
-                                         GridPane.valignment="CENTER"/>
-                              <TextField fx:id="thenInput" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="4"
-                                         GridPane.halignment="CENTER" GridPane.rowIndex="1"
-                                         GridPane.valignment="CENTER"/>
-                              <ChoiceBox fx:id="moveInput" maxHeight="1.7976931348623157E308"
-                                         maxWidth="1.7976931348623157E308" GridPane.columnIndex="2"
-                                         GridPane.rowIndex="1"/>
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Ze stanu" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Do stanu" GridPane.columnIndex="1" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Przesunięcie" GridPane.columnIndex="2" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Kiedy" GridPane.columnIndex="3" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Wtedy" GridPane.columnIndex="4" />
+                              <TextField fx:id="fromInput" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <TextField fx:id="toInput" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <TextField fx:id="whenInput" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <TextField fx:id="thenInput" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <ChoiceBox fx:id="moveInput" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                            </GridPane>
                            <HBox alignment="CENTER" maxHeight="40.0" maxWidth="1.7976931348623157E308">
-                              <HBox HBox.hgrow="ALWAYS"/>
-                              <HBox HBox.hgrow="ALWAYS"/>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                      onAction="#clearTransition" text="Wyczyść"/>
-                              <HBox maxWidth="100.0" HBox.hgrow="ALWAYS"/>
-                              <Button fx:id="addTransition" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                      onAction="#addTransition" text="Dodaj"/>
-                              <CheckBox fx:id="clearTransitionFields" mnemonicParsing="false"
-                                        text="czyszczenie pól po dodaniu">
+                              <HBox HBox.hgrow="ALWAYS" />
+                              <HBox HBox.hgrow="ALWAYS" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearTransition" text="Wyczyść" />
+                              <HBox maxWidth="100.0" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="addTransition" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addTransition" text="Dodaj" />
+                              <CheckBox fx:id="clearTransitionFields" mnemonicParsing="false" text="czyszczenie pól po dodaniu">
                                  <HBox.margin>
-                                    <Insets left="10.0"/>
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </CheckBox>
-                              <HBox HBox.hgrow="ALWAYS"/>
+                              <HBox HBox.hgrow="ALWAYS" />
                               <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </padding>
                            </HBox>
                            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                              <CheckBox fx:id="enableClearAll" maxHeight="1.7976931348623157E308"
-                                        maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                        text="enable clear all">
+                              <CheckBox fx:id="enableClearAll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="enable clear all">
                                  <HBox.margin>
-                                    <Insets left="10.0" right="5.0"/>
+                                    <Insets left="10.0" right="5.0" />
                                  </HBox.margin>
                               </CheckBox>
-                              <Button fx:id="clearMachineButton" maxHeight="1.7976931348623157E308"
-                                      maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearMachine"
-                                      text="Clear all">
+                              <Button fx:id="clearMachineButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearMachine" text="Clear all">
                                  <HBox.margin>
-                                    <Insets left="5.0" right="5.0"/>
+                                    <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Button>
                               <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </padding>
                            </HBox>
                         </VBox>
@@ -226,100 +197,82 @@
                   </AnchorPane>
                </Tab>
                <Tab closable="false" disable="true" text="...">
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" visible="false"/>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" visible="false" />
                </Tab>
             </TabPane>
          </AnchorPane>
          <AnchorPane maxWidth="700.0" minWidth="250.0">
-            <TableView fx:id="transitionTable" editable="true" maxHeight="1.7976931348623157E308"
-                       maxWidth="1.7976931348623157E308" minWidth="250.0" AnchorPane.bottomAnchor="0.0"
-                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="transitionTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columns>
-                  <TableColumn fx:id="fromColumn" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="140.0"
-                               text="Ze stanu"/>
-                  <TableColumn fx:id="toColumn" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="140.0"
-                               text="Do stanu"/>
-                  <TableColumn fx:id="moveColumn" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="120.0"
-                               text="Przesunięcie"/>
-                  <TableColumn fx:id="whenColumn" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="100.0"
-                               text="Kiedy"/>
-                  <TableColumn fx:id="thenColumn" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="100.0"
-                               text="Wtedy"/>
+                  <TableColumn fx:id="fromColumn" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="140.0" text="Ze stanu" />
+                  <TableColumn fx:id="toColumn" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="140.0" text="Do stanu" />
+                  <TableColumn fx:id="moveColumn" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="120.0" text="Przesunięcie" />
+                  <TableColumn fx:id="whenColumn" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="100.0" text="Kiedy" />
+                  <TableColumn fx:id="thenColumn" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="100.0" text="Wtedy" />
                </columns>
             </TableView>
          </AnchorPane>
       </SplitPane>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308"
-                  maxWidth="1.7976931348623157E308" minHeight="30.0" prefHeight="60.0" vbarPolicy="NEVER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="30.0" prefHeight="60.0" vbarPolicy="NEVER">
          <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <Label text="Opóźnienie">
                <HBox.margin>
-                  <Insets left="10.0" right="5.0"/>
+                  <Insets left="10.0" right="5.0" />
                </HBox.margin>
             </Label>
             <Spinner fx:id="delay" editable="true" maxWidth="100.0">
                <HBox.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                </HBox.margin>
             </Spinner>
-            <HBox HBox.hgrow="ALWAYS"/>
-            <Spinner fx:id="stepBackCount" editable="true" maxWidth="100.0"/>
-            <Button fx:id="stepBackMore" alignment="CENTER" contentDisplay="CENTER" disable="true"
-                    maxWidth="1.7976931348623157E308" minWidth="35.0" mnemonicParsing="false" onAction="#stepBackMore"
-                    text="&lt;&lt;"/>
-            <Button fx:id="stepBack" alignment="CENTER" contentDisplay="CENTER" disable="true"
-                    maxWidth="1.7976931348623157E308" minWidth="30.0" mnemonicParsing="false" onAction="#stepBack"
-                    text="&lt;">
+            <HBox HBox.hgrow="ALWAYS" />
+            <Spinner fx:id="stepBackCount" editable="true" maxWidth="100.0" />
+            <Button fx:id="stepBackMore" alignment="CENTER" contentDisplay="CENTER" disable="true" maxWidth="1.7976931348623157E308" minWidth="35.0" mnemonicParsing="false" onAction="#stepBackMore" text="&lt;&lt;" />
+            <Button fx:id="stepBack" alignment="CENTER" contentDisplay="CENTER" disable="true" maxWidth="1.7976931348623157E308" minWidth="30.0" mnemonicParsing="false" onAction="#stepBack" text="&lt;">
                <HBox.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="playPause" minWidth="50.0" mnemonicParsing="false" onAction="#playPause" text="Uruchom">
                <HBox.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="stop" disable="true" minWidth="50.0" mnemonicParsing="false" onAction="#stopRunning"
-                    text="Zresetuj"/>
-            <Button fx:id="step" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308"
-                    minWidth="30.0" mnemonicParsing="false" onAction="#step" text="&gt;">
+            <Button fx:id="stop" disable="true" minWidth="50.0" mnemonicParsing="false" onAction="#stopRunning" text="Zresetuj" />
+            <Button fx:id="step" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="30.0" mnemonicParsing="false" onAction="#step" text="&gt;">
                <HBox.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="stepMore" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308"
-                    minWidth="35.0" mnemonicParsing="false" onAction="#stepMore" text="&gt;&gt;">
+            <Button fx:id="stepMore" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="35.0" mnemonicParsing="false" onAction="#stepMore" text="&gt;&gt;">
                <HBox.margin>
-                  <Insets left="5.0"/>
+                  <Insets left="5.0" />
                </HBox.margin>
             </Button>
             <Spinner fx:id="stepCount" editable="true" maxWidth="100.0">
                <HBox.margin>
-                  <Insets/>
+                  <Insets />
                </HBox.margin>
             </Spinner>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
             <CheckBox fx:id="debug" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="tryb debugowania">
                <padding>
-                  <Insets right="5.0"/>
+                  <Insets right="5.0" />
                </padding>
             </CheckBox>
          </HBox>
       </ScrollPane>
-      <ScrollPane fx:id="machineTapeScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308"
-                  maxWidth="1.7976931348623157E308" minHeight="40.0" prefHeight="60.0" vbarPolicy="NEVER">
+      <ScrollPane fx:id="machineTapeScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="40.0" prefHeight="60.0" vbarPolicy="NEVER">
          <HBox fx:id="machineTape" alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
             <padding>
-               <Insets left="10.0" right="10.0"/>
+               <Insets left="10.0" right="10.0" />
             </padding>
          </HBox>
       </ScrollPane>
-      <ScrollPane fx:id="operatingTapeScrollPane" fitToHeight="true" fitToWidth="true"
-                  maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="40.0"
-                  prefHeight="60.0" vbarPolicy="NEVER">
+      <ScrollPane fx:id="operatingTapeScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="40.0" prefHeight="60.0" vbarPolicy="NEVER">
          <HBox fx:id="operatingTape" alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
             <padding>
-               <Insets left="10.0" right="10.0"/>
+               <Insets left="10.0" right="10.0" />
             </padding>
          </HBox>
       </ScrollPane>

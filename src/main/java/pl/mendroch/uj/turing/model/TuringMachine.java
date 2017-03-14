@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import static pl.mendroch.uj.turing.model.Move.BEZ;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.*;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 @ToString
 public class TuringMachine {
     private final Lock lock = new ReentrantLock();

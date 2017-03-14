@@ -33,16 +33,69 @@
             </configuration>
          </plugin>
          <plugin>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.0.2</version>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>2.4.3</version>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>shade</goal>
+                  </goals>
+               </execution>
+            </executions>
             <configuration>
-               <archive>
-                  <manifest>
-                     <addClasspath>true</addClasspath>
+               <shadedArtifactAttached>true</shadedArtifactAttached>
+               <shadedClassifierName>shaded</shadedClassifierName>
+               <transformers>
+                  <transformer
+                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                      <mainClass>pl.mendroch.uj.turing.Main</mainClass>
-                  </manifest>
-               </archive>
+                  </transformer>
+               </transformers>
             </configuration>
+         </plugin>
+         <plugin>
+            <groupId>com.akathist.maven.plugins.launch4j</groupId>
+            <artifactId>launch4j-maven-plugin</artifactId>
+            <version>1.7.15</version>
+            <executions>
+               <execution>
+                  <id>l4j-clui</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>launch4j</goal>
+                  </goals>
+                  <configuration>
+                     <icon>src/main/resources/pl/mendroch/uj/turing/icon.ico</icon>
+                     <headerType>console</headerType>
+                     <outfile>target/Turing Machine.exe</outfile>
+                     <jar>target/turing-machine-1.0-shaded.jar</jar>
+                     <errTitle>Turing Machine</errTitle>
+                     <classPath>
+                        <mainClass>pl.mendroch.uj.turing.Main</mainClass>
+                        <addDependencies>false</addDependencies>
+                        <preCp>anything</preCp>
+                     </classPath>
+                     <jre>
+                        <minVersion>1.8.0</minVersion>
+                        <opts>
+                           <opt>-Djava.endorsed.dirs=./endorsed</opt>
+                        </opts>
+                     </jre>
+                     <versionInfo>
+                        <fileVersion>1.2.3.4</fileVersion>
+                        <txtFileVersion>txt file version?</txtFileVersion>
+                        <fileDescription>a description</fileDescription>
+                        <copyright>my copyright</copyright>
+                        <productVersion>4.3.2.1</productVersion>
+                        <txtProductVersion>txt product version</txtProductVersion>
+                        <productName>Turing Machine</productName>
+                        <internalName>turing</internalName>
+                        <originalFilename>Turing Machine.exe</originalFilename>
+                     </versionInfo>
+                  </configuration>
+               </execution>
+            </executions>
          </plugin>
       </plugins>
    </build>

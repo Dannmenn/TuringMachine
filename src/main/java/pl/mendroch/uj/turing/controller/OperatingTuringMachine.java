@@ -12,8 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.util.Pair;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.java.Log;
 import org.controlsfx.control.Notifications;
 import pl.mendroch.uj.turing.model.MachineState;
@@ -34,8 +32,6 @@ import static pl.mendroch.uj.turing.model.Move.*;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.*;
 
 @Log
-@Getter
-@Setter
 @SuppressWarnings("WeakerAccess")
 public class OperatingTuringMachine {
     public static final String MODIFY_ENABLE_DEBUG_OR_RESTART = "Zmodyfikuj przejścia i włącz tryb debugowania lub zrestartuj maszynę";
@@ -69,7 +65,7 @@ public class OperatingTuringMachine {
 
     public void initialize() {
         tape = machine.getTape();
-        transitionHistory.clear();
+        clearHistory();
         states = new HashMap<>(machine.getStates());
         actualPosition = 1;
         actualState = states.get(INITIAL_STATE);
@@ -334,6 +330,18 @@ public class OperatingTuringMachine {
             executor.shutdownNow();
         }
         super.finalize();
+    }
+
+    public int getStepTime() {
+        return stepTime.get();
+    }
+
+    public void clearHistory() {
+        transitionHistory.clear();
+    }
+
+    public void setInitialState(String initialState) {
+        actualState = machine.getState(initialState);
     }
 
     public static class ObservableLinkedList extends LinkedList<Pair<Transition, String>> {

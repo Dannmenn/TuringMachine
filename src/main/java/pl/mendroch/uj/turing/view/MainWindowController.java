@@ -32,6 +32,7 @@ import java.util.ResourceBundle;
 
 import static pl.mendroch.uj.turing.model.Move.PRAWO;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.END_CHARACTER;
+import static pl.mendroch.uj.turing.model.TuringMachineConstants.INITIAL_STATE;
 
 @Log
 public class MainWindowController implements Initializable {
@@ -97,6 +98,8 @@ public class MainWindowController implements Initializable {
     private TableColumn<Transition, String> thenColumn;
     @FXML
     private Spinner<Integer> stepBackCount;
+    @FXML
+    private TextField initialState;
     @FXML
     private Button stepBack;
     @FXML
@@ -239,6 +242,7 @@ public class MainWindowController implements Initializable {
         }
         clearTapeInput();
         clearTransition();
+        initialState.setText(INITIAL_STATE);
         machine.reset();
         singleMode.setSelected(true);
         leftLimit.setSelected(false);
@@ -300,6 +304,7 @@ public class MainWindowController implements Initializable {
             props.put("delay", "" + delay.getValue());
             props.put("step.count", "" + stepCount.getValue());
             props.put("step.back.count", "" + stepBackCount.getValue());
+            props.put("initial.state", initialState.getText());
             props.store(out, "Turing application properties");
         } catch (Exception e) {
             log.warning(e.getMessage());
@@ -327,6 +332,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void runThread() {
+        operatingMachine.setInitialState(initialState.getText());
         runner = new TuringMachineRunner(operatingMachine);
         new Thread(runner).start();
         stop.setDisable(false);
@@ -386,7 +392,7 @@ public class MainWindowController implements Initializable {
     private void initializeRunningElements() {
         operatingMachine.setManual(true);
         stop.setDisable(true);
-        operatingMachine.getTransitionHistory().clear();
+        operatingMachine.clearHistory();
         machineTape.getChildren().clear();
         operatingTape.getChildren().clear();
     }
@@ -425,16 +431,17 @@ public class MainWindowController implements Initializable {
         Properties props = new Properties();
         try (InputStream is = new FileInputStream(new File("app.properties"))) {
             props.load(is);
+            FileDialog.setOpenedFile(props.getProperty("open.file"));
+            FileDialog.setSavedFile(props.getProperty("saved.file"));
+            debug.setSelected(Boolean.valueOf(props.getProperty("debug", "false")));
+            detectLoop.setSelected(Boolean.valueOf(props.getProperty("detect.loop", "true")));
+            delay.getValueFactory().setValue(Integer.parseInt(props.getProperty("delay", "1000")));
+            stepCount.getValueFactory().setValue(Integer.parseInt(props.getProperty("step.count", "3")));
+            stepBackCount.getValueFactory().setValue(Integer.parseInt(props.getProperty("step.back.count", "3")));
+            initialState.setText(props.getProperty("initial.state", INITIAL_STATE));
         } catch (Exception e) {
             log.warning(e.getMessage());
         }
-        FileDialog.setOpenedFile(props.getProperty("open.file"));
-        FileDialog.setSavedFile(props.getProperty("saved.file"));
-        debug.setSelected(Boolean.valueOf(props.getProperty("debug", "false")));
-        detectLoop.setSelected(Boolean.valueOf(props.getProperty("detect.loop", "true")));
-        delay.getValueFactory().setValue(Integer.parseInt(props.getProperty("delay", "1000")));
-        stepCount.getValueFactory().setValue(Integer.parseInt(props.getProperty("step.count", "3")));
-        stepBackCount.getValueFactory().setValue(Integer.parseInt(props.getProperty("step.back.count", "3")));
     }
 
     void setTape(String tape) {
@@ -571,6 +578,7 @@ public class MainWindowController implements Initializable {
         leftLimit.selectedProperty().addListener(tapeListener);
         rightLimit.selectedProperty().addListener(tapeListener);
         operatingMachine.detectLoopProperty().bind(detectLoop.selectedProperty());
+        clearMachine();
     }
 
     @SuppressWarnings("WeakerAccess")

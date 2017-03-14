@@ -22,7 +22,7 @@ public class MachineState {
 
     public Optional<Transition> getTransition(String character) {
         Transition transition = transitionMap.get(character);
-        if (transition != null){
+        if (transition != null) {
             return Optional.of(transition);
         }
         return Optional.ofNullable(transitionMap.get(ANY_CHARACTER));
