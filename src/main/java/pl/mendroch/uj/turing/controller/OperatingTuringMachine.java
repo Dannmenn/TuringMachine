@@ -19,6 +19,7 @@ import pl.mendroch.uj.turing.model.Move;
 import pl.mendroch.uj.turing.model.Transition;
 import pl.mendroch.uj.turing.model.TuringMachine;
 import pl.mendroch.uj.turing.view.Dialog;
+import pl.mendroch.uj.turing.view.MainWindowController;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -203,6 +204,7 @@ public class OperatingTuringMachine {
         log.warning("Runner will loop: " + next);
         Platform.runLater(() -> Notifications.create()
                 .title("Maszyna Turinga się zapętli")
+                .owner(MainWindowController.getStage())
                 .text("Zapętli się na przejściu: " + transition + "\n" + MODIFY_ENABLE_DEBUG_OR_RESTART)
                 .showError());
     }
@@ -215,6 +217,7 @@ public class OperatingTuringMachine {
             log.warning("Runner looped on transition: " + transition);
             Platform.runLater(() -> Notifications.create()
                     .title("Maszyna Turinga zapętliła się")
+                    .owner(MainWindowController.getStage())
                     .text("Zapętlona na przejściu: " + transition + "\n" + MODIFY_ENABLE_DEBUG_OR_RESTART)
                     .showError());
             return;
@@ -232,6 +235,7 @@ public class OperatingTuringMachine {
                 }
                 Platform.runLater(() -> Notifications.create()
                         .title("Maszyna Turinga zapętliła się")
+                        .owner(MainWindowController.getStage())
                         .text("Maszyna Turinga była " + steps + " przejść temu w tej samej pozycji i tym samym przejściu: " + next)
                         .showWarning());
                 return;
@@ -342,6 +346,7 @@ public class OperatingTuringMachine {
 
     public void setInitialState(String initialState) {
         actualState = machine.getState(initialState);
+        selectTableRow();
     }
 
     public static class ObservableLinkedList extends LinkedList<Pair<Transition, String>> {

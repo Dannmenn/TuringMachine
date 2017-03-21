@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 
 import static javafx.scene.control.Alert.AlertType.ERROR;
 import static javafx.scene.control.Alert.AlertType.WARNING;
+import static pl.mendroch.uj.turing.model.FontStyle.FONT;
 
 @SuppressWarnings("WeakerAccess")
 public class Dialog {
@@ -25,6 +26,7 @@ public class Dialog {
             Alert alert = new Alert(type);
             alert.initOwner(MainWindowController.getStage());
             alert.setTitle(title);
+            alert.getDialogPane().setStyle(FONT);
             alert.setContentText(content);
             alert.show();
         });
@@ -34,6 +36,7 @@ public class Dialog {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.initOwner(MainWindowController.getStage());
         alert.setTitle("Pomoc");
+        alert.getDialogPane().setStyle(FONT);
         alert.setHeaderText(null);
         TextArea textArea = new TextArea();
         textArea.setText("Menu:\n" +
@@ -44,9 +47,10 @@ public class Dialog {
                 "\t\t\t\ttryb wyrazu\n" +
                 "\t\t\t\ttaśma:#pierwszeDrugie Trzecie#\n" +
                 "\t\t\t\tq1->q2:a->b:prawo\n" +
-                "\t\tZamknij - zamyka aplikację. Aktualnie używana maszyna wraz z ustawieniami aplikacji zostanie zapisana do plików tekstowych i przywrócona przy następnym uruchomieniu\n" +
+                "\t\tZamknij - zamyka aplikację. Aktualnie używana maszyna wraz z ustawieniami aplikacji zostanie zapisana do plików konfiguracji i przywrócona przy następnym uruchomieniu\n" +
                 "\tEdycja:\n" +
-                "\t\tWyczyść - czyści wszystkie pola wraz z aktualną maszyną Turinga\n" +
+                "\t\tWykrywanie zapętleń - włączanie/wyłączanie wykrywania zapętleń i wyświetlanie powiadomień"+
+                "\t\tWyczyść - czyści wszystkie pola wraz z aktualną maszyną Turingai przywraca domyślne ustawienia aplikacji\n" +
                 "\tCzcionka - rozmiar czcionki w aplikacji\n" +
                 "\tTyp taśmy:\n" +
                 "\t\tPojedyncze znaki - każdy znak jest osobnym elementem alfabetu maszyny\n" +
@@ -57,10 +61,12 @@ public class Dialog {
                 "\tWprowadzanie taśmy:\n" +
                 "\t\tWprowadzanie elementów taśmy odpowiednio do wybranego trybu. Pusty symbol zapisywać można jako ' ', jedynym zakazanym znakiem jest #.\n" +
                 "\t\t\tprawostronne i lewostronne ograniczenie zostanie wprowadzone jako znak #\n" +
-                "\t\tWprowadzanie przejść. Stany użyte w przejściach jeśli nie istnieją zostaną automatycznie dodane do stanów maszyny. Pozostawione pola zostaną pobrane w domyślnego przejścia.\n" +
+                "\t\t\ttaśma zostanie przeniesiona do taśmy aktualnie wykonywanej maszyny jedynie w przypadku gdy maszyna nie została jeszcze uruchomiona"+
+                "\t\tWprowadzanie przejść. Stany użyte w przejściach jeśli nie istnieją zostaną automatycznie dodane do stanów maszyny. Pozostawione pola zostaną pobrane z domyślnego przejścia.\n" +
                 "\t\tMożliwość wprowadzania wielu znaków('kiedy', 'wtedy') równocześnie na takiej samej zasadzie jak elementy taśmy. Znaki specjalne:\n" +
                 "\t\t\t'*' - kiedy: dowolne dopasowanie, wtedy: przepisuje zastany element\n" +
                 "\t\t\t' ' - znak pusty\n" +
+                "\t\tStan początkowy - ustawia stan początkowy tylko w przypadku gdy maszyna nie została uruchomiona"+
                 "\t\tczyszczenie pól po dodaniu - pola dodawania przejść zostaną wyczyszczone po dodaniu\n" +
                 "Modyfikowanie przejść:\n" +
                 "\tDane oprócz kolumny 'Ze stanu' mogą być modyfikowane bezpośrednio z poziomu tabeli. W menu kontekstowym wiersza można usunąć pojedynczy wiersz, a także wszystkie przejścia dla stanu z kolumny 'Ze stanu'\n" +
@@ -74,6 +80,7 @@ public class Dialog {
         alert.setResizable(true);
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.setContent(textArea);
+        dialogPane.setStyle(FONT);
         textArea.setMaxWidth(Double.MAX_VALUE);
         textArea.setMinWidth(Region.USE_PREF_SIZE);
         dialogPane.setMaxWidth(Double.MAX_VALUE);

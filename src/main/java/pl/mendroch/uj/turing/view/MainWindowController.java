@@ -19,6 +19,7 @@ import lombok.extern.java.Log;
 import org.controlsfx.control.table.TableFilter;
 import pl.mendroch.uj.turing.controller.OperatingTuringMachine;
 import pl.mendroch.uj.turing.controller.TuringMachineRunner;
+import pl.mendroch.uj.turing.model.MachineState;
 import pl.mendroch.uj.turing.model.Move;
 import pl.mendroch.uj.turing.model.Transition;
 import pl.mendroch.uj.turing.model.TuringMachine;
@@ -30,6 +31,7 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import static pl.mendroch.uj.turing.model.FontStyle.*;
 import static pl.mendroch.uj.turing.model.Move.PRAWO;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.END_CHARACTER;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.INITIAL_STATE;
@@ -48,6 +50,14 @@ public class MainWindowController implements Initializable {
     private RadioMenuItem singleMode;
     @FXML
     private RadioMenuItem wordMode;
+    @FXML
+    private RadioMenuItem small;
+    @FXML
+    private RadioMenuItem medium;
+    @FXML
+    private RadioMenuItem big;
+    @FXML
+    private RadioMenuItem mega;
     @FXML
     private AnchorPane root;
     @FXML
@@ -132,7 +142,7 @@ public class MainWindowController implements Initializable {
         this.operatingMachine = new OperatingTuringMachine(machine);
     }
 
-    static Stage getStage() {
+    public static Stage getStage() {
         return stage;
     }
 
@@ -179,19 +189,11 @@ public class MainWindowController implements Initializable {
         LinkedList<String> whenList = getListFromString(when);
         LinkedList<String> thenList = getListFromString(then);
         if (when.contains(END_CHARACTER) || then.contains(END_CHARACTER)) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(stage);
-            alert.setHeaderText(null);
-            alert.setContentText("Nie może zawierać znaku " + END_CHARACTER);
-            alert.show();
+            Dialog.showWarning("Nie może zawierać znaku " + END_CHARACTER);
             return;
         }
         if (thenList.size() > 1) {
-            Alert warning = new Alert(Alert.AlertType.WARNING);
-            warning.initOwner(stage);
-            warning.setContentText("Dane w polu 'Wtedy' mogą zawierać tylko pojedyncze elementy alfabetu");
-            warning.setHeaderText(null);
-            warning.show();
+            Dialog.showWarning("Nie może zawierać znaku ");
             return;
         }
         for (String whenCharacter : whenList) {
@@ -305,6 +307,7 @@ public class MainWindowController implements Initializable {
             props.put("step.count", "" + stepCount.getValue());
             props.put("step.back.count", "" + stepBackCount.getValue());
             props.put("initial.state", initialState.getText());
+            props.put("font.style", FONT);
             props.store(out, "Turing application properties");
         } catch (Exception e) {
             log.warning(e.getMessage());
@@ -368,6 +371,11 @@ public class MainWindowController implements Initializable {
         Integer count = stepBackCount.getValue();
         while (count-- > 0) {
             stepBack();
+            try {
+                Thread.sleep(delay.getValue() / 100);
+            } catch (InterruptedException e) {
+                log.warning(e.getMessage());
+            }
         }
     }
 
@@ -377,6 +385,11 @@ public class MainWindowController implements Initializable {
         Integer count = stepCount.getValue();
         while (count-- > 0) {
             step();
+            try {
+                Thread.sleep(delay.getValue() / 100);
+            } catch (InterruptedException e) {
+                log.warning(e.getMessage());
+            }
         }
     }
 
@@ -399,22 +412,26 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void fontBig() {
-        root.setStyle("-fx-font-size:20;");
+        FONT = BIG;
+        root.setStyle(BIG);
     }
 
     @FXML
     private void fontMedium() {
-        root.setStyle("-fx-font-size:16;");
+        FONT = MEDIUM;
+        root.setStyle(MEDIUM);
     }
 
     @FXML
     private void fontMega() {
-        root.setStyle("-fx-font-size:24;");
+        FONT = MEGA;
+        root.setStyle(MEGA);
     }
 
     @FXML
     private void fontSmall() {
-        root.setStyle("-fx-font-size:12;");
+        FONT = SMALL;
+        root.setStyle(SMALL);
     }
 
     private void disableButtons(boolean disable) {
@@ -431,6 +448,22 @@ public class MainWindowController implements Initializable {
         Properties props = new Properties();
         try (InputStream is = new FileInputStream(new File("app.properties"))) {
             props.load(is);
+            FONT = props.getProperty("font.style");
+            switch (FONT) {
+                case SMALL:
+                    small.setSelected(true);
+                    break;
+                case MEDIUM:
+                    medium.setSelected(true);
+                    break;
+                case BIG:
+                    big.setSelected(true);
+                    break;
+                case MEGA:
+                    mega.setSelected(true);
+                    break;
+            }
+            root.setStyle(FONT);
             FileDialog.setOpenedFile(props.getProperty("open.file"));
             FileDialog.setSavedFile(props.getProperty("saved.file"));
             debug.setSelected(Boolean.valueOf(props.getProperty("debug", "false")));
@@ -579,6 +612,23 @@ public class MainWindowController implements Initializable {
         rightLimit.selectedProperty().addListener(tapeListener);
         operatingMachine.detectLoopProperty().bind(detectLoop.selectedProperty());
         clearMachine();
+        initialState.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(oldValue)) {
+                return;
+            }
+            setInitialState(newValue);
+        });
+    }
+
+    void setInitialState(String newValue) {
+        MachineState state = machine.getState(newValue);
+        if (state == null) {
+            machine.addState(newValue);
+        }
+        INITIAL_STATE = newValue;
+        if (runner == null) {
+            operatingMachine.setInitialState(newValue);
+        }
     }
 
     @SuppressWarnings("WeakerAccess")

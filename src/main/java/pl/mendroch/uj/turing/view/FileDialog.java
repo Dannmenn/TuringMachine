@@ -20,12 +20,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static pl.mendroch.uj.turing.model.FontStyle.FONT;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.END_CHARACTER;
+import static pl.mendroch.uj.turing.model.TuringMachineConstants.INITIAL_STATE;
 
 @Log
 class FileDialog {
     private static final Pattern MODE = Pattern.compile("tryb wyrazu");
     private static final Pattern TAPE = Pattern.compile("taśma:(#?[a-zA-Z0-9]+#?)");
+    private static final Pattern INITIAL = Pattern.compile("stan początkowy:(.+)");
     private static final Pattern TRANSITION = Pattern.compile("(.+)->(.+):(.+)->(.+):([a-zA-Z]+)");
     private static File openedFile;
     private static File savedFile;
@@ -56,6 +59,11 @@ class FileDialog {
                 Matcher modeMatcher = MODE.matcher(line.toLowerCase());
                 if (modeMatcher.matches()) {
                     controller.setWordMode();
+                    return;
+                }
+                Matcher initialMatcher = INITIAL.matcher(line.toLowerCase());
+                if (initialMatcher.matches()) {
+                    controller.setInitialState(initialMatcher.group(1));
                     return;
                 }
                 Matcher transitionMatcher = TRANSITION.matcher(line);
@@ -96,6 +104,7 @@ class FileDialog {
     private static void showExceptionDialog(Window stage, IOException e) {
         ExceptionDialog exceptionDialog = new ExceptionDialog(e);
         exceptionDialog.initOwner(stage);
+        exceptionDialog.getDialogPane().setStyle(FONT);
         exceptionDialog.show();
     }
 
@@ -132,6 +141,7 @@ class FileDialog {
         List<String> output = new ArrayList<>();
         output.add(machine.isSingleCharacter() ? "Tryb pojedynczych znaków" : "tryb wyrazu");
         output.add("taśma:" + machine.getTapeString());
+        output.add("stan początkowy:" + INITIAL_STATE);
         SortedList<Transition> transitions = machine.getTransitions()
                 .sorted(Comparator.comparing(Transition::getWhen))
                 .sorted(Comparator.comparing(Transition::getFrom));
