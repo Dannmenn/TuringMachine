@@ -35,6 +35,7 @@ import static pl.mendroch.uj.turing.model.FontStyle.*;
 import static pl.mendroch.uj.turing.model.Move.PRAWO;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.END_CHARACTER;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.INITIAL_STATE;
+import static pl.mendroch.uj.turing.utilities.StringUtilities.getListFromString;
 
 @Log
 public class MainWindowController implements Initializable {
@@ -186,8 +187,8 @@ public class MainWindowController implements Initializable {
         if (then.isEmpty()) {
             then = thenDefault.getText();
         }
-        LinkedList<String> whenList = getListFromString(when);
-        LinkedList<String> thenList = getListFromString(then);
+        LinkedList<String> whenList = getListFromString(when, machine.isSingleCharacter());
+        LinkedList<String> thenList = getListFromString(then, machine.isSingleCharacter());
         if (when.contains(END_CHARACTER) || then.contains(END_CHARACTER)) {
             Dialog.showWarning("Nie może zawierać znaku " + END_CHARACTER);
             return;
@@ -206,26 +207,6 @@ public class MainWindowController implements Initializable {
         }
         clearInput();
         transitionTable.refresh();
-    }
-
-    private LinkedList<String> getListFromString(String string) {
-        LinkedList<String> list = new LinkedList<>();
-        if (machine.isSingleCharacter()) {
-            string.chars().forEachOrdered(value -> list.add((char) value + ""));
-        } else {
-            int start = 0;
-            for (int i = 1; i < string.length(); i++) {
-                char character = string.charAt(i);
-                if (character >= 65 && character <= 90 || character == 32) {
-                    list.add(string.substring(start, i));
-                    start = i;
-                }
-            }
-            if (start < string.length()) {
-                list.add(string.substring(start, string.length()));
-            }
-        }
-        return list;
     }
 
     private void clearInput() {

@@ -14,6 +14,7 @@ import pl.mendroch.uj.turing.model.TuringMachine;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -159,7 +160,7 @@ class FileDialog {
     }
 
     static void setOpenedFile(String file) {
-        if (file != null) {
+        if (file != null && Files.exists(Paths.get(file))) {
             openedFile = new File(file);
         }
     }
@@ -169,7 +170,7 @@ class FileDialog {
     }
 
     static void setSavedFile(String file) {
-        if (file != null) {
+        if (file != null && Files.exists(Paths.get(file))) {
             savedFile = new File(file);
         }
     }

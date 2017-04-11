@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import lombok.ToString;
+import lombok.extern.java.Log;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,9 +17,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static pl.mendroch.uj.turing.model.Move.BEZ;
 import static pl.mendroch.uj.turing.model.TuringMachineConstants.*;
+import static pl.mendroch.uj.turing.utilities.StringUtilities.getListFromString;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@Log
 @ToString
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class TuringMachine {
     private final Lock lock = new ReentrantLock();
     private boolean isSingleCharacter = true;
@@ -53,22 +56,7 @@ public class TuringMachine {
     private LinkedList<String> createListFromString() {
         LinkedList<String> list = new LinkedList<>();
         list.add(leftLimit.get() ? END_CHARACTER : BLANK_CHARACTER);
-        String string = tape.get();
-        if (isSingleCharacter) {
-            string.chars().forEachOrdered(value -> list.add((char) value + ""));
-        } else {
-            int start = 0;
-            for (int i = 1; i < string.length(); i++) {
-                char character = string.charAt(i);
-                if (character >= 65 && character <= 90 || character == 32) {
-                    list.add(string.substring(start, i));
-                    start = i;
-                }
-            }
-            if (start < string.length()) {
-                list.add(string.substring(start, string.length()));
-            }
-        }
+        list.addAll(getListFromString(tape.get(), isSingleCharacter));
         list.add(rightLimit.get() ? END_CHARACTER : BLANK_CHARACTER);
         return list;
     }
@@ -116,9 +104,7 @@ public class TuringMachine {
         lock.lock();
         try {
             MachineState remove = states.get(state);
-            for (Transition transition : remove.getTransitionMap().values()) {
-                transitions.remove(transition);
-            }
+            transitions.removeAll(remove.getTransitionMap().values());
             for (Transition transition : transitions) {
                 if (transition.getTo().equals(state)) {
                     return;
@@ -138,7 +124,8 @@ public class TuringMachine {
             filter.when(character);
             transitions.removeIf(next -> next.equals(filter));
             MachineState machineState = states.get(state);
-            machineState.removeTransition(character);
+            Transition removed = machineState.removeTransition(character);
+            log.info(removed.toString());
             if (machineState.getTransitionMap().isEmpty()) {
                 for (Transition transition : transitions) {
                     if (transition.getTo().equals(state)) {
