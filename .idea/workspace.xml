@@ -2,16 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb1b43a4-dc7f-49da-98d7-97eb02194127" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/Turing Machine.exe" afterPath="$PROJECT_DIR$/target/Turing Machine.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/Main.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/controller/OperatingTuringMachine.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/controller/OperatingTuringMachine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/controller/TuringMachineRunner.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/controller/TuringMachineRunner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/TuringMachineConstants.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/TuringMachineConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/Dialog.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/Dialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/FileDialog.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/FileDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/MainWindowController.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/MainWindowController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.fxml" afterPath="$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.fxml" />
     </list>
     <list id="e50da74b-ae67-40fe-bb33-519ab2779671" name="Do not commit" comment="" />
@@ -34,11 +24,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainWindowController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainWindowController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/MainWindowController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="645" column="43" lean-forward="true" selection-start-line="645" selection-start-column="43" selection-end-line="645" selection-end-column="43" />
+            <state relative-caret-position="187">
+              <caret line="620" column="13" lean-forward="false" selection-start-line="620" selection-start-column="8" selection-end-line="620" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -46,10 +36,33 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="mainWindow.fxml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="122" column="154" lean-forward="false" selection-start-line="122" selection-start-column="154" selection-end-line="122" selection-end-column="154" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TuringMachineConstants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/TuringMachineConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="OperatingTuringMachine.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/controller/OperatingTuringMachine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
+            <state relative-caret-position="2596">
               <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
               <folding />
             </state>
@@ -69,7 +82,7 @@
       <file leaf-file-name="FileDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/FileDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
+            <state relative-caret-position="946">
               <caret line="66" column="38" lean-forward="false" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
               <folding />
             </state>
@@ -102,13 +115,11 @@
       <find>runner</find>
       <find>runner = nu</find>
       <find>runner =</find>
-      <find>runner =</find>
       <find>reset</find>
       <find>zreset</find>
       <find>&quot;B&quot;</find>
       <find>B</find>
       <find>Bra</find>
-      <find>Brak</find>
       <find>Brak</find>
       <find>Brak p</find>
       <find>Brak prz</find>
@@ -122,6 +133,8 @@
       <find>clear</find>
       <find>step</find>
       <find>operatingTapeList</find>
+      <find>blank</find>
+      <find>&quot;P&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace>private void</replace>
@@ -167,7 +180,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.css" />
         <option value="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/Move.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/Transition.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/MachineState.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/FontStyle.java" />
@@ -184,6 +196,7 @@
         <option value="$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/controller/TuringMachineRunner.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/last.txt" />
+        <option value="$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.fxml" />
       </list>
     </option>
   </component>
@@ -269,9 +282,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -309,6 +322,14 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="turing" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -780,7 +801,6 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21291356" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40848213" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -792,6 +812,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -832,7 +853,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="102" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/MainWindowController.java</url>
+          <line>452</line>
+          <properties />
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="103" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1136,17 +1165,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="250" column="161" lean-forward="false" selection-start-line="250" selection-start-column="161" selection-end-line="250" selection-end-column="161" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_102/src.zip!/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1159,14 +1177,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="1770" column="0" lean-forward="false" selection-start-line="1770" selection-start-column="0" selection-end-line="1770" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/TuringMachineConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -1192,7 +1202,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/FileDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
+        <state relative-caret-position="946">
           <caret line="66" column="38" lean-forward="false" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
           <folding />
         </state>
@@ -1200,7 +1210,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/controller/OperatingTuringMachine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
+        <state relative-caret-position="2596">
           <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
           <folding />
         </state>
@@ -1214,13 +1224,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/model/TuringMachineConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/mendroch/uj/turing/view/MainWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="645" column="43" lean-forward="true" selection-start-line="645" selection-start-column="43" selection-end-line="645" selection-end-column="43" />
+        <state relative-caret-position="187">
+          <caret line="620" column="13" lean-forward="false" selection-start-line="620" selection-start-column="8" selection-end-line="620" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/pl/mendroch/uj/turing/mainWindow.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="122" column="154" lean-forward="false" selection-start-line="122" selection-start-column="154" selection-end-line="122" selection-end-column="154" />
+          <folding />
         </state>
       </provider>
     </entry>

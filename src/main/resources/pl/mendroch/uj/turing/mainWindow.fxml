@@ -120,7 +120,7 @@
                            </GridPane>
                            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
                               <children>
-                                 <TextField fx:id="blank" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="80.0" text="P" />
+                                 <TextField fx:id="blank" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="80.0" text="B" />
                                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Znak pusty">
                                     <padding>
                                        <Insets left="5.0" />
