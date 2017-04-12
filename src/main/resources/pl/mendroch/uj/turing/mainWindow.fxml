@@ -120,6 +120,12 @@
                            </GridPane>
                            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
                               <children>
+                                 <TextField fx:id="blank" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="80.0" text="P" />
+                                 <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Znak pusty">
+                                    <padding>
+                                       <Insets left="5.0" />
+                                    </padding>
+                                 </Label>
                                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Dodawanie przejścia" />
                                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -258,7 +264,16 @@
                </HBox.margin>
             </Spinner>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-            <CheckBox fx:id="debug" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="tryb debugowania">
+            <Label fx:id="count" text="0" />
+            <Label maxHeight="1.7976931348623157E308" style="-fx-border-color: transparent black transparent transparent;" text="kroków">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <CheckBox fx:id="debug" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="debugowanie">
                <padding>
                   <Insets right="5.0" />
                </padding>

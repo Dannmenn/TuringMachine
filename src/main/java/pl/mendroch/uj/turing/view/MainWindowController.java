@@ -33,8 +33,7 @@ import java.util.ResourceBundle;
 
 import static pl.mendroch.uj.turing.model.FontStyle.*;
 import static pl.mendroch.uj.turing.model.Move.PRAWO;
-import static pl.mendroch.uj.turing.model.TuringMachineConstants.END_CHARACTER;
-import static pl.mendroch.uj.turing.model.TuringMachineConstants.INITIAL_STATE;
+import static pl.mendroch.uj.turing.model.TuringMachineConstants.*;
 import static pl.mendroch.uj.turing.utilities.StringUtilities.getListFromString;
 
 @Log
@@ -59,6 +58,8 @@ public class MainWindowController implements Initializable {
     private RadioMenuItem big;
     @FXML
     private RadioMenuItem mega;
+    @FXML
+    private Label count;
     @FXML
     private AnchorPane root;
     @FXML
@@ -111,6 +112,8 @@ public class MainWindowController implements Initializable {
     private Spinner<Integer> stepBackCount;
     @FXML
     private TextField initialState;
+    @FXML
+    private TextField blank;
     @FXML
     private Button stepBack;
     @FXML
@@ -289,6 +292,7 @@ public class MainWindowController implements Initializable {
             props.put("step.back.count", "" + stepBackCount.getValue());
             props.put("initial.state", initialState.getText());
             props.put("font.style", FONT);
+            props.put("blank", BLANK_CHARACTER);
             props.store(out, "Turing application properties");
         } catch (Exception e) {
             log.warning(e.getMessage());
@@ -308,7 +312,7 @@ public class MainWindowController implements Initializable {
             if (runner == null) {
                 runThread();
             } else {
-                runner.stepRunner();
+                runner.step();
             }
         } else {
             operatingMachine.setManual(true);
@@ -330,7 +334,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void step() {
         setManualAndRunIfNeeded();
-        runner.step();
+        runner.stepRunner();
     }
 
     private void setManualAndRunIfNeeded() {
@@ -343,7 +347,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void stepBack() {
         setManualAndRunIfNeeded();
-        runner.stepBack();
+        runner.stepRunnerBack();
     }
 
     @FXML
@@ -351,7 +355,7 @@ public class MainWindowController implements Initializable {
         setManualAndRunIfNeeded();
         Integer count = stepBackCount.getValue();
         while (count-- > 0) {
-            stepBack();
+            runner.stepRunnerBack();
             try {
                 Thread.sleep(delay.getValue() / 100);
             } catch (InterruptedException e) {
@@ -365,7 +369,7 @@ public class MainWindowController implements Initializable {
         setManualAndRunIfNeeded();
         Integer count = stepCount.getValue();
         while (count-- > 0) {
-            step();
+            runner.stepRunner();
             try {
                 Thread.sleep(delay.getValue() / 100);
             } catch (InterruptedException e) {
@@ -385,6 +389,7 @@ public class MainWindowController implements Initializable {
 
     private void initializeRunningElements() {
         operatingMachine.setManual(true);
+        operatingMachine.counterProperty().setValue(0);
         stop.setDisable(true);
         operatingMachine.clearHistory();
         machineTape.getChildren().clear();
@@ -429,7 +434,7 @@ public class MainWindowController implements Initializable {
         Properties props = new Properties();
         try (InputStream is = new FileInputStream(new File("app.properties"))) {
             props.load(is);
-            FONT = props.getProperty("font.style");
+            FONT = props.getProperty("font.style", MEDIUM);
             switch (FONT) {
                 case SMALL:
                     small.setSelected(true);
@@ -445,6 +450,8 @@ public class MainWindowController implements Initializable {
                     break;
             }
             root.setStyle(FONT);
+            BLANK_CHARACTER = props.getProperty("blank", BLANK_CHARACTER);
+            blank.setText(BLANK_CHARACTER);
             FileDialog.setOpenedFile(props.getProperty("open.file"));
             FileDialog.setSavedFile(props.getProperty("saved.file"));
             debug.setSelected(Boolean.valueOf(props.getProperty("debug", "false")));
@@ -521,6 +528,16 @@ public class MainWindowController implements Initializable {
             MenuItem deleteState = new MenuItem("Usuń stan");
             deleteState.setOnAction(event -> machine.removeState(row.getItem().getFrom()));
             items.add(deleteState);
+            MenuItem useAsBaseTransition = new MenuItem("Użyj jako baza");
+            useAsBaseTransition.setOnAction(event -> {
+                Transition item = row.getItem();
+                fromInput.setText(item.getFrom());
+                toInput.setText(item.getTo());
+                whenInput.setText(item.getWhen());
+                thenInput.setText(item.getThen());
+                moveInput.getSelectionModel().select(item.getMove());
+            });
+            items.add(useAsBaseTransition);
 //            if (item != null && INITIAL_STATE.equals(item.getFrom())) {
 //                deleteState.setDisable(true);
 //            } else {
@@ -558,18 +575,17 @@ public class MainWindowController implements Initializable {
         delay.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 10000, 1000, 100));
         operatingMachine.debugModeProperty().bind(debug.selectedProperty());
         operatingMachine.stepTimeProperty().bind(delay.valueProperty());
+        operatingMachine.counterProperty().addListener((observable, oldValue, newValue) -> count.setText(newValue.toString()));
         initializeRunningElements();
-        operatingMachine.manualProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> {
-                if (!newValue) {
-                    playPause.setText("Zatrzym");
-                    disableButtons(true);
-                } else {
-                    playPause.setText("Uruchom");
-                    disableButtons(false);
-                }
-            });
-        });
+        operatingMachine.manualProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+            if (!newValue) {
+                playPause.setText("Zatrzym");
+                disableButtons(true);
+            } else {
+                playPause.setText("Uruchom");
+                disableButtons(false);
+            }
+        }));
         addTransition.disableProperty().bind(Bindings.createBooleanBinding(
                 () -> fromInput.getText().trim().isEmpty(), fromInput.textProperty())
                 .and(Bindings.createBooleanBinding(
@@ -594,10 +610,36 @@ public class MainWindowController implements Initializable {
         operatingMachine.detectLoopProperty().bind(detectLoop.selectedProperty());
         clearMachine();
         initialState.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(oldValue)) {
+            if (oldValue.isEmpty()) {
+                oldValue = INITIAL_STATE;
+            }
+            if (newValue.isEmpty() || newValue.equals(oldValue)) {
                 return;
             }
             setInitialState(newValue);
+        });
+        blank.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                return;
+            }
+            if (oldValue.isEmpty()) {
+                oldValue = BLANK_CHARACTER;
+            }
+            BLANK_CHARACTER = newValue;
+            if (newValue.equals(oldValue)) {
+                return;
+            }
+            if (runner == null) {
+                for (Transition transition : machine.getTransitions()) {
+                    if (transition.getWhen().equals(oldValue)) {
+                        transition.when(newValue);
+                    }
+                    if (transition.getThen().equals(oldValue)) {
+                        transition.then(newValue);
+                    }
+                }
+                tapeInput.setText(tapeInput.getText().replace(oldValue, newValue));
+            }
         });
     }
 

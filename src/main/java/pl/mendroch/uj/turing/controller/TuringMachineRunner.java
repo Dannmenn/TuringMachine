@@ -16,7 +16,6 @@ public class TuringMachineRunner implements Runnable {
 
     public TuringMachineRunner(OperatingTuringMachine machine) {
         this.machine = machine;
-        machine.initialize();
     }
 
     @Override
@@ -30,9 +29,7 @@ public class TuringMachineRunner implements Runnable {
                     manualLatch.await();
                     manualLatch = new CountDownLatch(1);
                 }
-                if (running.get()) {
-                    PlatformImpl.runAndWait(machine::step);
-                }
+                stepRunner();
                 if (!machine.isManual()) {
                     log.info("sleep");
                     runnerLatch.await((long) machine.getStepTime(), TimeUnit.MILLISECONDS);
@@ -51,9 +48,11 @@ public class TuringMachineRunner implements Runnable {
         runnerLatch.countDown();
     }
 
-    public void stepBack() {
-        log.info("step back");
-        PlatformImpl.runAndWait(machine::stepBack);
+    public void stepRunnerBack() {
+        log.info("step runner back");
+        if (running.get()) {
+            PlatformImpl.runAndWait(machine::stepBack);
+        }
     }
 
     public void step() {
@@ -63,6 +62,8 @@ public class TuringMachineRunner implements Runnable {
 
     public void stepRunner() {
         log.info("step runner");
-        manualLatch.countDown();
+        if (running.get()) {
+            PlatformImpl.runAndWait(machine::step);
+        }
     }
 }

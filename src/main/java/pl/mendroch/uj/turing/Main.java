@@ -32,8 +32,6 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("mainWindow.fxml"));
         Parent root = loader.load();
         MainWindowController controller = loader.getController();
-        controller.setStage(stage);
-
         Scene scene = new Scene(root, 300, 275);
 
         stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
@@ -45,6 +43,8 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.setAlwaysOnTop(false);
+        controller.setStage(stage);
+
         stage.show();
     }
 }

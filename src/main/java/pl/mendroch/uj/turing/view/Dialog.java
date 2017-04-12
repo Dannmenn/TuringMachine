@@ -13,18 +13,31 @@ import static pl.mendroch.uj.turing.model.FontStyle.FONT;
 
 @SuppressWarnings("WeakerAccess")
 public class Dialog {
+    private static Alert errorDialog;
+    private static Alert warningDialog;
+
     public static void showError(String content) {
-        showAlertDialog("Nie można przeprowadzić przejścia", content, ERROR);
+        if (errorDialog == null) {
+            errorDialog = new Alert(ERROR);
+            errorDialog.initOwner(MainWindowController.getStage());
+        }
+        if (!errorDialog.isShowing()) {
+            showAlertDialog("Nie można przeprowadzić przejścia", content, errorDialog);
+        }
     }
 
     public static void showWarning(String content) {
-        showAlertDialog("Brak przejścia", content, WARNING);
+        if (warningDialog == null) {
+            warningDialog = new Alert(WARNING);
+            warningDialog.initOwner(MainWindowController.getStage());
+        }
+        if (!warningDialog.isShowing()) {
+            showAlertDialog("Brak przejścia", content, warningDialog);
+        }
     }
 
-    private static void showAlertDialog(String title, String content, AlertType type) {
+    private static void showAlertDialog(String title, String content, Alert alert) {
         Platform.runLater(() -> {
-            Alert alert = new Alert(type);
-            alert.initOwner(MainWindowController.getStage());
             alert.setTitle(title);
             alert.getDialogPane().setStyle(FONT);
             alert.setContentText(content);
@@ -49,7 +62,7 @@ public class Dialog {
                 "\t\t\t\tq1->q2:a->b:prawo\n" +
                 "\t\tZamknij - zamyka aplikację. Aktualnie używana maszyna wraz z ustawieniami aplikacji zostanie zapisana do plików konfiguracji i przywrócona przy następnym uruchomieniu\n" +
                 "\tEdycja:\n" +
-                "\t\tWykrywanie zapętleń - włączanie/wyłączanie wykrywania zapętleń i wyświetlanie powiadomień"+
+                "\t\tWykrywanie zapętleń - włączanie/wyłączanie wykrywania zapętleń i wyświetlanie powiadomień" +
                 "\t\tWyczyść - czyści wszystkie pola wraz z aktualną maszyną Turingai przywraca domyślne ustawienia aplikacji\n" +
                 "\tCzcionka - rozmiar czcionki w aplikacji\n" +
                 "\tTyp taśmy:\n" +
@@ -61,12 +74,12 @@ public class Dialog {
                 "\tWprowadzanie taśmy:\n" +
                 "\t\tWprowadzanie elementów taśmy odpowiednio do wybranego trybu. Pusty symbol zapisywać można jako ' ', jedynym zakazanym znakiem jest #.\n" +
                 "\t\t\tprawostronne i lewostronne ograniczenie zostanie wprowadzone jako znak #\n" +
-                "\t\t\ttaśma zostanie przeniesiona do taśmy aktualnie wykonywanej maszyny jedynie w przypadku gdy maszyna nie została jeszcze uruchomiona"+
+                "\t\t\ttaśma zostanie przeniesiona do taśmy aktualnie wykonywanej maszyny jedynie w przypadku gdy maszyna nie została jeszcze uruchomiona" +
                 "\t\tWprowadzanie przejść. Stany użyte w przejściach jeśli nie istnieją zostaną automatycznie dodane do stanów maszyny. Pozostawione pola zostaną pobrane z domyślnego przejścia.\n" +
                 "\t\tMożliwość wprowadzania wielu znaków('kiedy', 'wtedy') równocześnie na takiej samej zasadzie jak elementy taśmy. Znaki specjalne:\n" +
                 "\t\t\t'*' - kiedy: dowolne dopasowanie, wtedy: przepisuje zastany element\n" +
                 "\t\t\t' ' - znak pusty\n" +
-                "\t\tStan początkowy - ustawia stan początkowy tylko w przypadku gdy maszyna nie została uruchomiona"+
+                "\t\tStan początkowy - ustawia stan początkowy tylko w przypadku gdy maszyna nie została uruchomiona" +
                 "\t\tczyszczenie pól po dodaniu - pola dodawania przejść zostaną wyczyszczone po dodaniu\n" +
                 "Modyfikowanie przejść:\n" +
                 "\tDane oprócz kolumny 'Ze stanu' mogą być modyfikowane bezpośrednio z poziomu tabeli. W menu kontekstowym wiersza można usunąć pojedynczy wiersz, a także wszystkie przejścia dla stanu z kolumny 'Ze stanu'\n" +

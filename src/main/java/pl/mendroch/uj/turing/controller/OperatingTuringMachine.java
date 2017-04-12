@@ -40,6 +40,7 @@ public class OperatingTuringMachine {
     private final BooleanProperty detectLoop = new SimpleBooleanProperty();
     private final ObservableLinkedList transitionHistory = new ObservableLinkedList();
     private final TuringMachine machine;
+    private final IntegerProperty counter = new SimpleIntegerProperty(0);
     private HBox machineTape;
     private HBox operatingTape;
     private LinkedList<String> tape;
@@ -65,6 +66,7 @@ public class OperatingTuringMachine {
     }
 
     public void initialize() {
+        counter.setValue(0);
         tape = machine.getTape();
         clearHistory();
         states = new HashMap<>(machine.getStates());
@@ -97,12 +99,23 @@ public class OperatingTuringMachine {
 
     private void addTapeCharacterLabel(String character, String styleClass) {
         machineTapeList.add(createLabel(character, styleClass));
-        operatingTapeList.add(createLabel(character, styleClass));
+        Label operatingLabel = createLabel(character, styleClass);
+        operatingLabel.setOnMouseClicked(event -> setActualPosition(operatingLabel));
+        operatingTapeList.add(operatingLabel);
+    }
+
+    private void setActualPosition(Label operatingLabel) {
+        int index = operatingTapeList.indexOf(operatingLabel);
+        updateActualPosition(index);
+        actualPosition = index;
+        validNextIndex(actualPosition);
     }
 
     private void addTapeCharacterLabelAtStart(String character, String styleClass) {
         machineTapeList.add(0, createLabel(character, styleClass));
-        operatingTapeList.add(0, createLabel(character, styleClass));
+        Label operatingLabel = createLabel(character, styleClass);
+        operatingLabel.setOnMouseClicked(event -> setActualPosition(operatingLabel));
+        operatingTapeList.add(0, operatingLabel);
     }
 
     private Label createLabel(String endCharacter, String limitStyleClass) {
@@ -131,16 +144,18 @@ public class OperatingTuringMachine {
         if (transitionHistory.isEmpty()) {
             return;
         }
+        counter.setValue(counter.get() - 1);
         Transition transition = transitionHistory.pollLast().getKey();
         move(transition.getTo(), transition.getThen(), transition.getMove(), true);
     }
 
     public synchronized void step() {
-        String character = tape.get(actualPosition);
+        String character = ((Label) operatingTapeList.get(actualPosition)).getText();
         Optional<Transition> transitionForState = actualState.getTransition(character);
         if (transitionForState.isPresent()) {
             Transition transition = transitionForState.get();
             String then = isAny(transition.getThen()) ? isAny(transition.getWhen()) ? character : transition.getWhen() : transition.getThen();
+            counter.setValue(counter.get() + 1);
             if (move(transition.getTo(), then, transition.getMove(), false)) {
                 transitionHistory.addLast(new Pair<>(new Transition()
                         .from(transition.getTo())
@@ -259,10 +274,7 @@ public class OperatingTuringMachine {
             ((Label) operatingTapeList.get(actualPosition)).setText(then);
         }
         if (actualPosition != nextIndex) {
-            changeStyleClass(machineTapeList, actualPosition, SELECTED_STYLE_CLASS, TAPE_STYLE_CLASS);
-            changeStyleClass(machineTapeList, nextIndex, TAPE_STYLE_CLASS, SELECTED_STYLE_CLASS);
-            changeStyleClass(operatingTapeList, actualPosition, SELECTED_STYLE_CLASS, TAPE_STYLE_CLASS);
-            changeStyleClass(operatingTapeList, nextIndex, TAPE_STYLE_CLASS, SELECTED_STYLE_CLASS);
+            updateActualPosition(nextIndex);
         }
         actualPosition = nextIndex;
         if (stepBack) {
@@ -276,6 +288,13 @@ public class OperatingTuringMachine {
         }
         selectTableRow();
         return true;
+    }
+
+    private void updateActualPosition(int nextIndex) {
+        changeStyleClass(machineTapeList, actualPosition, SELECTED_STYLE_CLASS, TAPE_STYLE_CLASS);
+        changeStyleClass(machineTapeList, nextIndex, TAPE_STYLE_CLASS, SELECTED_STYLE_CLASS);
+        changeStyleClass(operatingTapeList, actualPosition, SELECTED_STYLE_CLASS, TAPE_STYLE_CLASS);
+        changeStyleClass(operatingTapeList, nextIndex, TAPE_STYLE_CLASS, SELECTED_STYLE_CLASS);
     }
 
     private void changeStyleClass(ObservableList<Node> list, int position, String remove, String add) {
@@ -326,6 +345,10 @@ public class OperatingTuringMachine {
 
     public BooleanProperty detectLoopProperty() {
         return detectLoop;
+    }
+
+    public IntegerProperty counterProperty() {
+        return counter;
     }
 
     @Override

@@ -62,7 +62,7 @@ class FileDialog {
                     controller.setWordMode();
                     return;
                 }
-                Matcher initialMatcher = INITIAL.matcher(line.toLowerCase());
+                Matcher initialMatcher = INITIAL.matcher(line);
                 if (initialMatcher.matches()) {
                     controller.setInitialState(initialMatcher.group(1));
                     return;
